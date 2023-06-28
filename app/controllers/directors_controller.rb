@@ -1,20 +1,5 @@
-class DirectorsController < ApplicationController
-  rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
+class DirectorMovieSerializer < ActiveModel::Serializer
+  attributes :title, :year
 
-  def index
-    directors = Director.all
-    render json: directors
-  end
-
-  def show
-    director = Director.find(params[:id])
-    render json: director
-  end
-
-  private
-
-  def render_not_found_response
-    render json: { error: "Director not found" }, status: :not_found
-  end
-
+  has_many :reviews
 end
